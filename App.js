@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import BarcodeScanner from './components/BarcodeScanner.js';
 import AsyncGet from './utils/async-get';
 
@@ -32,13 +32,12 @@ class App extends Component {
     );
   };
 
+  // Logo = ({ title }) => <Text style={styles.heading}>{title}</Text>;
+
   render() {
     return (
-      // <View style={styles.container}>
-      <View>
-        {/* <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text> */}
+      <View style={styles.container}>
+        <Text style={styles.logo}>Fork n Spoon</Text>
         <BarcodeScanner />
         <Button onPress={this.makeCall} title="Press" color="#841584" />
       </View>
@@ -52,6 +51,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  logo: {
+    // flex: 1,
+    textAlign: 'center',
+    color: 'red'
   }
 });
 
