@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  Image,
+  Dimensions
+} from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 // import BarcodeScanner from './components/BarcodeScanner.js';
 import AsyncGet from './utils/async-get';
@@ -91,7 +99,10 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.upc, this.state.searchText);
+    // console.log(this.state.upc, this.state.searchText);
+    const edamamResponse = this.state.response;
+    console.log(edamamResponse);
+
     return (
       <View style={styles.container}>
         <Text style={styles.logo}>Fork n Spoon</Text>
@@ -101,16 +112,24 @@ class App extends Component {
           ) : this.state.hasCameraPermission === false ? (
             <Text>Camera permission is not granted</Text>
           ) : null}
-          {/* <BarCodeScanner
-            onBarCodeRead={this._handleBarCodeRead}
-            style={{ height: 200, width: 200 }}
-          /> */}
+
           <BarCodeScanner
             onBarCodeRead={this._handleBarCodeRead}
-            style={{ height: 200, width: 200 }}
+            style={{
+              height: Dimensions.get('window').height / 2,
+              width: Dimensions.get('window').width / 2
+            }}
           />
+
+          {edamamResponse.hits ? (
+            <View>
+              {edamamResponse.hits.map(item => {
+                return <Image src={item.recipe.image} />;
+              })}
+            </View>
+          ) : null}
         </View>
-        <Button onPress={this.makeCall} title="Press" color="#841584" />
+        <Button onPress={this.makeCall} title="Test API" color="#841584" />
       </View>
     );
   }
